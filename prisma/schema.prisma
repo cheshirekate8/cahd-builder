@@ -25,8 +25,8 @@ model User {
 model Pack {
   id         Int         @id @default(autoincrement())
   name       String
-  user       User        @relation(fields: [userId], references: [id])
-  userId     Int
+  user       User?        @relation(fields: [userId], references: [id])
+  userId     Int?
   whites     White[]     @relation("PackToWhite")
   blacks     Black[]     @relation("PackToBlack")
 
