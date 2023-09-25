@@ -27,17 +27,21 @@ model Pack {
   name       String
   user       User        @relation(fields: [userId], references: [id])
   userId     Int
+  whites     White[]     @relation("PackToWhite")
+  blacks     Black[]     @relation("PackToBlack")
 
   @@map(name: "packs")
+}
+
+model White {
+  id     Int    @id @default(autoincrement())
+  text   String
+  packs  Pack[] @relation("PackToWhite")
 }
 
 model Black {
   id     Int    @id @default(autoincrement())
   text   String
   pick   Int
-}
-
-model White {
-  id     Int    @id @default(autoincrement())
-  text   String
+  packs  Pack[] @relation("PackToBlack")
 }

@@ -2,6 +2,7 @@
 import prisma from '../lib/prisma';
 import cardsData from "../public/cah-all-compact.json"
 
+
 async function main() {
   await prisma.user.create({
     data: {
@@ -11,14 +12,24 @@ async function main() {
     },
   });
 
-  // cardsData.white.forEach((whiteCard) => {
-  //   await prisma.white.create({
-  //     data: {
-  //       text: whiteCard
-  //     }
-  //   })
-  // })
+  for (let i = 0; i < cardsData.white.length; i++) {
+    console.log(cardsData.white[i])
+    await prisma.white.create({
+      data: {
+        text: `${cardsData.white[i]}`
+      },
+    });
+  }
 
+  for (let i = 0; i < cardsData.black.length; i++) {
+    console.log(cardsData.black[i])
+    await prisma.black.create({
+      data: {
+        text: `${cardsData.black[i].text}`,
+        pick: cardsData.black[i].pick
+      },
+    });
+  }
 
   // Close Prisma client
   await prisma.$disconnect();
