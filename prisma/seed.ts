@@ -1,44 +1,41 @@
-import prisma from '../lib/prisma';
-import cardsData from '../public/cah-all-compact.json';
+import prisma from "../lib/prisma";
+import cardsData from "../public/cah-cards-compact.json";
 
 async function main() {
   await prisma.user.create({
     data: {
-      username: 'DemoUser',
-      email: 'demo@user.com',
-      password: 'dEl!ciou$',
+      username: "DemoUser",
+      email: "demo@user.com",
+      password: "dEl!ciou$",
     },
   });
 
-  for (const whiteCard of cardsData.white) {
-    await prisma.white.create({
-      data: {
-        text: whiteCard,
-      },
-    });
-    console.log(`Created white card: ${whiteCard}`);
-  }
+  await prisma.white.createMany({
+    data: cardsData.white.map((text) => ({ text })),
+  });
 
-  for (const blackCard of cardsData.black) {
-    await prisma.black.create({
-      data: {
-        text: blackCard.text,
-        pick: blackCard.pick,
-      },
-    });
-    console.log(`Created black card: ${blackCard.text}`);
-  }
+  console.log(`Created white cards`);
 
-  for (const packData of cardsData.packs) {
+  await prisma.black.createMany({
+    data: cardsData.black.map((card) => ({
+      text: card.text,
+      pick: card.pick,
+    })),
+  });
+
+  console.log(`Created black cards`);
+
+  for (const packData of Object.values(cardsData.metadata)) {
+
     const pack = await prisma.pack.create({
       data: {
         name: packData.name,
         user: undefined,
         whites: {
-          connect: packData.white.map((id) => ({ id })),
+          connect: packData.white.map((id) => ({ id: id + 1 })),
         },
         blacks: {
-          connect: packData.black.map((id) => ({ id })),
+          connect: packData.black.map((id) => ({ id: id + 1 })),
         },
       },
     });

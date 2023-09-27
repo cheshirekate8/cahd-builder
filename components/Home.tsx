@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import cardsData from "../public/cah-all-compact.json"
 
 export default function Home() { 
   return (
