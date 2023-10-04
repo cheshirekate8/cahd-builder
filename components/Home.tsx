@@ -6,12 +6,12 @@ export default function Home() {
   return (
     <div>
       <div className="introComponent h-[400px] md:h-[800px] flex flex-col justify-center items-center">
-        <h1 className="text-4xl md:text-6xl p-4 md:p-8">DeckBuilder 9000</h1>
-        <span>
-          <Link text="Login" to="/login"  />
-          <Link text="Signup" to="/signup"  />
-        </span>
-        <button>Build Your Deck</button>
+        <h1 className="text-4xl md:text-6xl m-4 md:m-8">DeckBuilder 9000</h1>
+        <div className="flex gap-4">
+          <Link text="Login" to="/login" />
+          <Link text="Signup" to="/signup" />
+        </div>
+        <Button label="Build Your Deck" />
       </div>
       <div className="explainerComponent">
         <h2>
@@ -29,11 +29,11 @@ export default function Home() {
           Hi! I'm Katie. I'm a Full Stack dev with 2+ years of experience. Hire
           me!
         </p>
-        <span>
+        <div>
           <button>Portfolio</button>
           <button>Github</button>
           <button>Linkedin</button>
-        </span>
+        </div>
       </div>
     </div>
   );
